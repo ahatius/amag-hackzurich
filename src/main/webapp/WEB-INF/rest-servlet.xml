@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<context:component-scan base-package="ch.amag.webtech.hackathon.controller" />
+	
+	<!-- Allows XML and JSON output -->
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	</bean>
+
+	<!-- Make this available across all of Spring MVC -->
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+	
+	<!-- Configuration files -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+                <value>file:///etc/amag/hackzurich/application.properties</value>
+                <value>file:///C:\\temp\\application.properties</value>
+            </list>
+        </property> 
+        
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+</beans>
